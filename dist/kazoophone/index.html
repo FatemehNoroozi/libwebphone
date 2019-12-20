@@ -1,0 +1,222 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+  <title>KazooPhone</title>
+
+  <style type="text/css">
+    body {
+      background-color: #FFFFFF;
+      color: #0000FF;
+    }
+  </style>
+  <style type="text/css">
+    a:hover {
+      color: #785D3A;
+    }
+  </style>
+</head>
+<script src="./js/libwebphone.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  var phone = new libwebphone();
+
+
+
+  function login() {
+
+    phone.StartStack
+      (
+        "vbbZ65Q.sb.2600hz.com",
+        document.getElementById("txtsipuri").value,
+        document.getElementById("txtsipuri").value,
+        document.getElementById("txtpassword").value,
+        document.getElementById("txtsipuri").value,
+        "wss://sandbox.2600hz.com:5065/",
+        "[{url:'stun:stun.l.google.com:19302'}]",
+        "txtRegStatus",
+        "txtCallStatus",
+        "btnCallAudio",
+        "btnCallMuteUnmute",
+        "btnHoldResume",
+        "btnHangup",
+        "btnTransfer",
+        "audio_remote",
+        "video-local",
+        "video-remote",
+        "btnCallVideo",
+        "btnStopVideoSharing",
+        "txtDestinationnumber",
+        "txtTransferCall",
+        "btnaddtoparklist",
+        "callparkcontainer",
+        "divforparkunpark"
+      );
+
+  }
+
+
+
+
+</script>
+
+
+
+
+<body>
+  <div id="bv_Shape2"
+    style="margin:0;padding:0;position:absolute;left:444px;top:91px;width:769px;height:527px;text-align:center;z-index:0;">
+    <img src="./phone_files/bv01002.gif" id="Shape2" alt="" title="" style="border-width:0;width:769px;height:527px">
+  </div>
+  <div id="bv_Shape1"
+    style="margin:0;padding:0;position:absolute;left:459px;top:279px;width:366px;height:327px;text-align:center;z-index:1;">
+    <input type="button" id="btnCallAudio2" name="btnCallAudio" value="Audio Call"
+      style="position: absolute; left: 467px; top: 287px; width: 85px; height: 24px; font-family: Arial; font-size: 13px; z-index: 14"
+      onClick='phone.CallAudioOnly(getElementById("txtDestinationnumber").value);'>
+
+
+
+    <img src="./phone_files/bv01005.gif" id="Shape1" alt="" title="" style="border-width:0;width:366px;height:327px">
+  </div>
+  <div id="bv_Shape3"
+    style="margin:0;padding:0;position:absolute;left:836px;top:151px;width:363px;height:454px;text-align:center;z-index:2;">
+    <img src="./phone_files/bv01006.gif" id="Shape3" alt="" title="" style="border-width:0;width:363px;height:454px">
+  </div>
+  <div id="bv_Shape4"
+    style="margin:0;padding:0;position:absolute;left:460px;top:151px;width:362px;height:122px;text-align:center;z-index:3;">
+    <img src="./phone_files/bv01007.gif" id="Shape4" alt="" title="" style="border-width:0;width:362px;height:122px">
+  </div>
+  <div id="bv_Text2"
+    style="margin: 0; padding: 0; position: absolute; left: 469px; top: 170px; width: 52px; height: 16px; text-align: left; z-index: 4;">
+    <font style="font-size:13px" color="#000000" face="Arial">SIP URI</font>
+  </div>
+  <input type="text" id="txtsipuri"
+    style="position: absolute; left: 525px; top: 168px; width: 293px; height: 20px; border: 1px #C0C0C0 solid; font-family: 'Courier New'; font-size: 12px; z-index: 5"
+    name="Editbox1" value="" placeholder="Enter SIP account">
+  <div id="bv_Text1"
+    style="margin: 0; padding: 0; position: absolute; left: 467px; top: 201px; width: 55px; height: 18px; text-align: left; z-index: 6;">
+    <font style="font-size:13px" color="#000000" face="Arial">Password</font>
+  </div>
+  <input type="password" id="txtpassword"
+    style="position: absolute; left: 527px; top: 199px; width: 290px; height: 20px; border: 1px #C0C0C0 solid; font-family: 'Courier New'; font-size: 12px; z-index: 7"
+    name="Editbox2" value="" placeholder="Enter Password">
+  <input type="submit" id="btnRegister" name="Button1" value="Login"
+    style="position: absolute; left: 663px; top: 228px; width: 67px; height: 24px; font-family: Arial; font-size: 13px; z-index: 8"
+    onclick='login();'>
+
+  <input type="submit" id="btnDisconnect" name="Button3" value="Log out"
+    style="position: absolute; left: 731px; top: 228px; width: 86px; height: 24px; font-family: Arial; font-size: 13px; z-index: 9"
+    onclick='phone.sipUnRegister();'>
+
+
+  <div id="bv_ImageMap1"
+    style="margin:0;padding:0;position:absolute;left:460px;top:101px;width:157px;height:42px;text-align:left;z-index:11;">
+    <img src="images/logo.png" width="157" height="42" alt="" /></div>
+  <div id="bv_Shape5"
+    style="margin: 0; padding: 0; position: absolute; left: 467px; top: 290px; width: 347px; height: 272px; text-align: center; z-index: 12;">
+    <p>&nbsp; </p>
+    <p>
+      <input type="button" style="width: 28%" class="btn" value="1" onclick="phone.sipSendDTMF('1');" />
+      <input type="button" style="width: 28%" class="btn" value="2" onclick="phone.sipSendDTMF('2');" />
+      <input type="button" style="width: 28%" class="btn" value="3" onclick="phone.sipSendDTMF('3');" />
+      <input type="button" style="width: 28%" class="btn" value="4" onclick="phone.sipSendDTMF('4');" />
+      <input type="button" style="width: 28%" class="btn" value="5" onclick="phone.sipSendDTMF('5');" />
+      <input type="button" style="width: 28%" class="btn" value="6" onclick="phone.sipSendDTMF('6');" />
+      <input type="button" style="width: 28%" class="btn" value="7" onclick="phone.sipSendDTMF('7');" />
+      <input type="button" style="width: 28%" class="btn" value="8" onclick="phone.sipSendDTMF('8');" />
+      <input type="button" style="width: 28%" class="btn" value="9" onclick="phone.sipSendDTMF('9');" />
+      <input type="button" style="width: 28%" class="btn" value="0" onclick="phone.sipSendDTMF('0');" />
+      <input type="button" style="width: 28%" class="btn" value="+" onClick="phone.sipSendDTMF('+');" />
+      <input type="button" style="width: 28%" class="btn" value="#" onclick="phone.sipSendDTMF('#');" />
+    </p>
+  </div>
+  <input type="text" id="txtDestinationnumber"
+    style="position: absolute; left: 495px; top: 295px; width: 284px; height: 20px; border: 1px #C0C0C0 solid; font-family: 'Courier New'; font-size: 12px; z-index: 13"
+    name="Editbox1" value="" placeholder="Number to Call">
+
+  <input type="button" id="btnCallAudio" name="Button1" value="Audio Call"
+    style="position: absolute; left: 495px; top: 445px; width: 74px; height: 24px; font-family: Arial; font-size: 13px; z-index: 14"
+    onclick='phone.sipCall("call-audio");'>
+
+  <input type="button" id="btnCallMuteUnmute" name="Button1" value="Mute"
+    style="position: absolute; left: 570px; top: 445px; width: 50px; height: 24px; font-family: Arial; font-size: 13px; z-index: 14"
+    onclick='phone.sipToggleMute();'>
+
+  <input id="btnaddtoparklist" type="button" name="btnaddtoparklist" value="Add Call Park"
+    style="position: absolute; left: 620px; top: 445px; width: 107px; height: 24px; font-family: Arial; font-size: 13px; z-index: 14"
+    onClick='phone.addparklist();'>
+
+
+
+
+
+
+  <input type="button" id="Button6" name="Hangup" value="Hangup"
+    style="position: absolute; left: 728px; top: 445px; width: 62px; height: 24px; font-family: Arial; font-size: 13px; z-index: 16"
+    onclick='phone.sipHangUp();'>
+
+  <input type="text" id="txtTransferCall"
+    style="position: absolute; left: 497px; top: 477px; width: 200px; height: 24px; border: 1px #C0C0C0 solid; font-family: 'Courier New'; font-size: 12px; z-index: 18"
+    name="Editbox1" value="" placeholder="Number to transfer">
+  <input type="button" id="Button8" name="Button1" value="Call Transfer "
+    style="position: absolute; left: 703px; top: 476px; width: 84px; height: 28px; font-family: Arial; font-size: 13px; z-index: 19"
+    onclick='phone.callTransfer(getElementById("txtTransferCall").value);'>
+  <input type="button" id="btnCallVideo" name="Button1" value="Video Call"
+    style="position: absolute; left: 980px; top: 163px; width: 75px; height: 24px; font-family: Arial; font-size: 13px; z-index: 20"
+    onclick='phone.sipCall("call-audiovideo");'>
+  <input type="button" id="btnStopVideoSharing" name="Button1" value="Stop Video"
+    style="position: absolute; left: 1061px; top: 162px; width: 128px; height: 24px; font-family: Arial; font-size: 13px; z-index: 21"
+    onclick='phone.stopShareVideoToggle();'>
+  <div id="bv_Shape6"
+    style="margin: 0; padding: 0; position: absolute; left: 843px; top: 193px; width: 348px; height: 330px; text-align: center; z-index: 23;">
+    <div align="left">
+      <video width="100" height="100" id="video-local" preload="auto" muted autoplay></video>
+    </div>
+    <div align="center">
+      <video width="340" height="270" id="video-remote" preload="auto" autoplay>]</video>
+
+    </div>
+
+
+    <p align="center">&nbsp;</p>
+  </div>
+
+
+  <input type="text" id="txtRegStatus" value="Disconnected"
+    style="margin: 0; padding: 0; position: absolute; left: 468px; top: 231px; width: 188px; height: 21px; background-color: #80C8E7; text-align: left; z-index: 24;border:none"
+    readonly>
+
+
+  <input type="text" id="txtCallStatus" value="No Session"
+    style="margin: 0; padding: 0; position: absolute; left: 500px; top: 507px; width: 283px; height: 23px; background-color: #80C8E7; text-align: left; z-index: 25; border: none"
+    readonly />
+  <audio id="audio_remote" autoplay></audio>
+  <audio id="ringtone" src="sounds/ringtone.wav" loop></audio>
+  <audio id="ringbacktone" src="sounds/ringbacktone.wav" loop></audio>
+  <audio id="dtmfTone" src="sounds/dtmf.wav"></audio>
+  <p>
+    <input type="text" name="textfield" id="textfield" readonly value="Call Park/Un-Park Container"
+      style="left: 223px; top: 97px; position: absolute; width: 219px;background-color:#A1B6D0">
+  </p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+  <p></p>
+  <!-- <div id="divforparkunpark" style="display: none;position: absolute;"> -->
+  <div id="divforparkunpark" style="position: absolute; left: 8px; top: 76px;">
+
+    <input id="btnHoldResume" type="button" value="Park" onClick='phone.sipToggleHoldResume();'>
+  </div>
+
+
+  <div id="callparkcontainer"
+    style="left: 224px; top: 118px; position: absolute; width: 216px; height: 500px; background:#98B5C9; float: left; overflow-y: auto;">
+
+
+  </div>
+</body>
+
+
+</html>
