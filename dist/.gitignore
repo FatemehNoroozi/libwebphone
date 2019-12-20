@@ -1,0 +1,9 @@
+*.todo
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+*.directory
+.project
+.vscode
+node_modules
+dist
