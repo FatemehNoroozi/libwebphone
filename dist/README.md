@@ -6,7 +6,7 @@ The goal of this library is to turn the browser in a softphone based on SIP+WebR
 2. [Methods](#methods)
 3. [Contact](#contact)
 
-## Initialization of the Library
+#initialization-of-the-library
 
 First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML.
 
@@ -17,8 +17,6 @@ First of all you need to include the JavaScript in the browser. In order to do s
 Next need to set the parameter to start connect kazoo platform in below function "StartStack"
 
 <script type="text/javascript">
-
-
       function login()
       {
         
@@ -53,7 +51,7 @@ Next need to set the parameter to start connect kazoo platform in below function
       }
 </script> 
 
-[Methods](#methods)
+#methods
 The phone object has below accessible methods:
 
 StartStack() :: Connect to Kazoo platform with credential and other paramaters
@@ -65,6 +63,7 @@ phone.callTransfer([Number to transfer]) :: Call transfer
 phone.stopShareVideoToggle() :: Stop / Sahring video local video stream 
 phone.sipHangUp() :: Hang up ongoing call
 phone.sipSendDTMF([value]) :: Send DTMF value from dialpad
+
 
 
 Using this, you should now be able to create some cool applications using softphones in your browser!
