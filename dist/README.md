@@ -3,9 +3,9 @@
 ### Objective
 The goal of this library is to turn the browser in a softphone based on SIP+WebRTC. Using this, you should now be able to create some cool applications using softphones in your browser!
 
-[Initialization of the Library](#Initialization-of-the-library)
-[Methods](#methods)
-[Contact](#contact)
+-[Initialization of the Library](#Initialization-of-the-library)
+-[Methods](#methods)
+-[Contact](#contact)
 
 
 ### Initialization-of-the-library
