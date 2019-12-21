@@ -12,7 +12,6 @@ The goal of this library is to turn the browser in a softphone based on SIP+WebR
 First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML. Next need to set the parameter to start connect kazoo platform in below function "StartStack"
 
 
-####Javascript　
 ```javascript
 <script type="text/javascript">
   var phone = new libwebphone();    
