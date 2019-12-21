@@ -8,7 +8,7 @@ The goal of this library is to turn the browser in a softphone based on SIP+WebR
 3. [Contact](#contact)
 
 
-###Initialization-of-the-library
+### Initialization-of-the-library
 First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML. Next need to set the parameter to start connect kazoo platform in below function "StartStack"
 
 
@@ -52,7 +52,7 @@ First of all you need to include the JavaScript in the browser. In order to do s
       }
 </script> 
 ```
-###Methods
+### Methods
 | Item      | Value |
 | --------- | -----:|
 | StartStack() | Connect to Kazoo platform with credential and  paramaters|
@@ -65,7 +65,7 @@ First of all you need to include the JavaScript in the browser. In order to do s
 |phone.sipHangUp()|Hang up call|
 |phone.sipSendDTMF([value])| Send DTMF value from dialpad|
 
-###Contact
+### Contact
 If you have any question or remark about the library or its documentation, feel free to come talk to us on IRC #2600hz on FreeNode.
 
 
