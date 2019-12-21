@@ -1,21 +1,24 @@
-# libwebphone.js library v2.2
+###### libwebphone.js library v2.2
+
+### Objective 
+
 
 The goal of this library is to turn the browser in a softphone based on SIP+WebRTC
 
-1. [Initialization of the Library](#initialization-of-the-library)
-2. [Methods](#methods)
-3. [Contact](#contact)
+1. Initialization of the Library
+2. Methods
+3. Contact
 
-##initialization-of-the-library
 
-First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML.
+###1. Initialization-of-the-library
+First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML. Next need to set the parameter to start connect kazoo platform in below function "StartStack"
 
+
+####Javascript　
+```javascript
 <script type="text/javascript">
   var phone = new libwebphone();    
 </script> 
-
-Next need to set the parameter to start connect kazoo platform in below function "StartStack"
-
 <script type="text/javascript">
       function login()
       {
@@ -50,11 +53,11 @@ Next need to set the parameter to start connect kazoo platform in below function
             
       }
 </script> 
+```
 
-##methods
-The phone object has below accessible methods:
 
-StartStack() :: Connect to Kazoo platform with credential and other paramaters
+###2. Methods
+StartStack() :: Connect to Kazoo platform with credential and paramaters
 phone.sipUnRegister()() :: Logout and disconnect from kazoo platform
 phone.sipCall(call-audio/call-audiovideo) :: Audio / Video call generation
 phone.sipToggleMute() :: Mute / UnMute audio call
@@ -64,9 +67,6 @@ phone.stopShareVideoToggle() :: Stop / Sahring video local video stream
 phone.sipHangUp() :: Hang up ongoing call
 phone.sipSendDTMF([value]) :: Send DTMF value from dialpad
 
+###3. Contact
+Using this, you should now be able to create some cool applications using softphones in your browser!If you have any question or remark about the library or its documentation, feel free to come talk to us on IRC #2600hz on FreeNode.
 
-
-Using this, you should now be able to create some cool applications using softphones in your browser!
-
-##Contact
-If you have any question or remark about the library or its documentation, feel free to come talk to us on IRC #2600hz on FreeNode.
