@@ -52,7 +52,7 @@ First of all you need to include the JavaScript in the browser. In order to do s
 </script> 
 ```
 ### Methods
-| Item      | Value |
+| Function      | Description |
 | --------- | -----:|
 | StartStack() | Connect to Kazoo platform with credential and  paramaters|
 | phone.sipUnRegister()|Logout and disconnect from kazoo platform|
