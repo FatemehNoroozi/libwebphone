@@ -59,7 +59,7 @@ First of all you need to include the JavaScript in the browser. In order to do s
       "[html button elementid to preview local video]",
       "[html button elementid to preview local video]",
       "[html button elementid to check mic]",
-	  "[html canvas elementid to preview Mic Staus is meter]"      
+      "[html canvas elementid to preview Mic Staus is meter]"      
      );'
 	 
       
@@ -72,11 +72,16 @@ First of all you need to include the JavaScript in the browser. In order to do s
 | phone.sipUnRegister()|Logout and disconnect from kazoo platform|
 | phone.sipCall(call-audio/call-audiovideo) |Audio / Video call generation |
 | phone.sipToggleMute() |Mute / UnMute call |
-|phone.sipToggleHoldResume()  |Park / Un-park  call |
+| phone.sipToggleHoldResume()  |Park / Un-park  call |
 | phone.callTransfer([Number to transfer] |Call transfer |
 | phone.stopShareVideoToggle() |Stop / Sahring video local video stream  |
-|phone.sipHangUp()|Hang up call|
-|phone.sipSendDTMF([value])| Send DTMF value from dialpad|
+| phone.sipHangUp()|Hang up call|
+| phone.sipSendDTMF([value]) | Send DTMF value from dialpad|
+| getlistofmedia("audio" or "video") | Get list of audio, video input media devices |
+| phone.previewlocalvideo() | Show local video stream from cam| 
+| phone.stoplocalvideo() | Stop local video stream fromc cam|
+| phone.checkmic() | Check and show mic status in meter in real time|
+
 
 
 ### Contact
