@@ -9,7 +9,7 @@ The goal of this library is to turn the browser in a softphone based on SIP+WebR
 
 
 ### Initialization-of-the-library
-First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML. Next need to set the parameter to start connect kazoo platform in below function "StartStack"
+First of all you need to include the JavaScript in the browser. In order to do so, you need to add the following snippet in your HTML. Next need to set the parameter to start connect kazoo platform in below function "StartStack" and to load local meadia devices, preview of video stearm and audio signal from mic in meter need to invoke invoke function "initmediadecie"
 
 
 ```javascript
@@ -50,17 +50,17 @@ First of all you need to include the JavaScript in the browser. In order to do s
             
       }
       
-      //For list audio,video input devices, mic status in meter
-      phone.initmediadecie(
-      "[html button elementid to get list of audio,video media input]",
-      "[html select elementid to load video media input]",
-      "[html video elementid to preciew local camera video stream]",
-      "[html select elementid to load audio media input]",
-      "[html button elementid to preview local video]",
-      "[html button elementid to preview local video]",
-      "[html button elementid to check mic]",
-      "[html canvas elementid to preview Mic Staus is meter]"      
-     );'
+      	//For list audio,video input devices, mic status in meter
+      	phone.initmediadecie(
+      	    "[html button elementid to get list of audio,video media input]",
+            "[html select elementid to load video media input]",
+            "[html video elementid to preciew local camera video stream]",
+            "[html select elementid to load audio media input]",
+            "[html button elementid to preview local video]",
+            "[html button elementid to preview local video]",
+            "[html button elementid to check mic]",
+            "[html canvas elementid to preview Mic Staus is meter]"      
+       );'
 	 
       
 </script> 
