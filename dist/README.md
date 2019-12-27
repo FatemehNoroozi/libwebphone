@@ -49,6 +49,20 @@ First of all you need to include the JavaScript in the browser. In order to do s
             );
             
       }
+      
+      //For list audio,video input devices, mic status in meter
+      phone.initmediadecie(
+      "[html button elementid to get list of audio,video media input]",
+      "[html select elementid to load video media input]",
+      "[html video elementid to preciew local camera video stream]",
+      "[html select elementid to load audio media input]",
+      "[html button elementid to preview local video]",
+      "[html button elementid to preview local video]",
+      "[html button elementid to check mic]",
+	  "[html canvas elementid to preview Mic Staus is meter]"      
+     );'
+	 
+      
 </script> 
 ```
 ### Methods
@@ -63,6 +77,7 @@ First of all you need to include the JavaScript in the browser. In order to do s
 | phone.stopShareVideoToggle() |Stop / Sahring video local video stream  |
 |phone.sipHangUp()|Hang up call|
 |phone.sipSendDTMF([value])| Send DTMF value from dialpad|
+
 
 ### Contact
 If you have any question or remark about the library or its documentation, feel free to come talk to us on IRC #2600hz on FreeNode.
