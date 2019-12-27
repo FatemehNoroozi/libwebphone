@@ -200,21 +200,60 @@
     <input type="text" name="textfield" id="textfield" readonly value="Call Park/Un-Park Container"
       style="left: 223px; top: 97px; position: absolute; width: 219px;background-color:#A1B6D0">
   </p>
-  <p>&nbsp;</p>
+<p>&nbsp;</p>
+  <div id="container" style="position: absolute; width: 218px; height: 287px; left: 222px; top: 367px; background: #98B5C9;">
+    <video autoplay id="videoElement" style="position: absolute; width: 216px; height: 249px; left: 2px; top: 2px; background-color: #666;"> </video>
+    <p>
+      <input id= "stopvideopreview" type="button" style="position: absolute; left: 108px; top: 254px; width: 109px;" value="Stop Preview" onClick="phone.stoplocalvideo();">
+    <div style="position: absolute; width: 217px; left: 0px; top: 292px; height: 75px; background: #98B5C9;" >
+      <p>
+        <input id="btnpreviewmicstart" type="button" value ="Preview Mic" onClick='phone.checkmic();'>
+      <!--<input id="btnpreviewmicstop" type="button" value ="Stop Mic" onClick='phone.stoplocalaudio();'></p>-->
+      <canvas id="meter" width="200" height="20"></canvas>
+    </div>
+    </p>
+    <p>
+      <input id = "startvideopreview" type="button" style="position: absolute; left: 5px; top: 255px; width: 98px;" value="Preview Video" onClick="phone.previewlocalvideo();">
+    </p>
+  </div>
   <p>&nbsp;</p>
   <p>&nbsp;</p>
   <p></p>
   <!-- <div id="divforparkunpark" style="display: none;position: absolute;"> -->
-  <div id="divforparkunpark" style="position: absolute; left: 8px; top: 76px;">
+<div id="divforparkunpark" style="position: absolute; left: 8px; top: 76px;">
 
     <input id="btnHoldResume" type="button" value="Park" onClick='phone.sipToggleHoldResume();'>
   </div>
 
 
-  <div id="callparkcontainer"
-    style="left: 224px; top: 118px; position: absolute; width: 216px; height: 500px; background:#98B5C9; float: left; overflow-y: auto;">
+<div id="callparkcontainer"
+    style="left: 222px; top: 118px; position: absolute; width: 218px; height: 246px; background: #98B5C9; float: left; overflow-y: auto;">
 
 
+  </div>
+<div style="position: absolute; left: 445px; top: 622px; width: 766px; background: #98B5C9; height: 112px;">
+    <p>
+      
+      <input id="btnitdevices" type="button" style = "width:220px" value ="Show all video and mic input devices" onClick='phone.initmediadecie(
+      "btngetaudioevices",
+      "cmbmediadevicelistvideo",
+      "videoElement",
+      "btngetvideodevices",
+      "cmbmediadevicelistaudio",
+      "startvideopreview",
+      "stopvideopreview",
+      "btnpreviewmicstart",
+      "btnpreviewmicstop",
+      "meter"
+     );'>
+     
+    </p>
+    <select name="cmbmediadevicelistvideo" id="cmbmediadevicelistvideo">
+	</select>
+    <p>
+      <select name="cmbmediadevicelistaudio" id="cmbmediadevicelistaudio">
+      </select>
+    </p>
   </div>
 </body>
 

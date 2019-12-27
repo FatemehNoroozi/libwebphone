@@ -1,10 +1,9 @@
 import { maxHeaderSize } from "http";
 
-//Last modified: 20/Dec/2019
+//Last modified: 27/Dec/2019
 
-
+//variable for phone functionalities and session
 let phone;
-
 var sTransferNumber;
 var oRingTone, oRingbackTone;
 var oSipStack, oSipSessionRegister, oSipSessionCall, oSipSessionTransferCall;
@@ -19,9 +18,7 @@ var oSipSessionRegister, onSipEventSession, onSipEventStack;
 var getPVal;
 var preInit;
 
-
-
-
+//varibale for phone component
 var txtRegStatus;
 var txtCallStatus;
 var btnCallAudio;
@@ -31,7 +28,6 @@ var btnHangup;
 var btnTransfer;
 var btnCallVideo;
 var btnStopVideoSharing;
-
 var txtDestinationnumber;
 var txtTransferCall;
 var registerSession;
@@ -39,6 +35,32 @@ var btnaddtoparklist;
 var callparkcontainer;
 var divforparkunpark;
 
+
+//Variable for Volumene meter and local video preview
+//component variable 
+var btngetaudioevices;
+var cmbmediadevicelistvideo;
+var videoElement;
+var btngetvideodevices;
+var cmbmediadevicelistaudio;
+var startvideopreview;
+var stopvideopreview;
+var btnpreviewmicstart;
+var btnpreviewmicstop;
+var meter;
+
+//functionality varibale
+var video;
+var stopVideo;
+var audioContext = null;
+var meter = null;
+var canvasContext = null;
+var WIDTH = 500;
+var HEIGHT = 50;
+var rafID = null;
+var mediaStreamSource = null;
+var selecteddevice_video = null;
+var selecteddevice_audio = null;
 
 
 function includejs(file) {
@@ -50,31 +72,46 @@ function includejs(file) {
     document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
-
-
 export default class {
-
-
-
 
     constructor(url) {
         console.info('Construction call for Kazoophone');
         includejs('SIPml-api_2.1.4.js'); //Load the SIPLM JS API 
-        console.info('SIP Stack Started');
-
+        console.info('SIP Stack Loaded');
         window.onload = function () {
             document.getElementById("divforparkunpark").style = "display: none";
-
         }
-
 
     } //end of constructor
 
+    initmediadecie(val_btngetaudioevices,
+        val_cmbmediadevicelistvideo,
+        val_videoElement,
+        val_btngetvideodevices,
+        val_cmbmediadevicelistaudio,
+        val_startvideopreview,
+        val_stopvideopreview,
+        val_btnpreviewmicstart,
+        val_btnpreviewmicstop,
+        val_meter
+    ) {
 
+        btngetaudioevices = document.getElementById(val_btngetaudioevices);
+        cmbmediadevicelistvideo = document.getElementById(val_cmbmediadevicelistvideo);
+        videoElement = document.getElementById(val_videoElement);
+        btngetvideodevices = document.getElementById(val_btngetvideodevices);
+        cmbmediadevicelistaudio = document.getElementById(val_cmbmediadevicelistaudio);
+        startvideopreview = document.getElementById(val_startvideopreview);
+        stopvideopreview = document.getElementById(val_stopvideopreview);
+        btnpreviewmicstart = document.getElementById(val_btnpreviewmicstart);
+        btnpreviewmicstop = document.getElementById(val_btnpreviewmicstop);
+        meter = document.getElementById(val_meter);
+        console.info("Init device setting");
+        getlistofmedia("video"); //Init local video input devices in combo box
+        getlistofmedia("audio"); //Init local audio input devices in combo box
+    } //End of initmediadecie
 
-
-
-
+    //Main Phone Functions [start]
     // sends SIP REGISTER request to login
     StartStack
         (value_realm,
@@ -104,8 +141,6 @@ export default class {
 
         ) {
         try {
-
-
             onSipEventStack = function (e) {
                 switch (e.type) {
                     case 'started':
@@ -435,10 +470,6 @@ export default class {
                         }
                 } //End of switch
             } //End of onSipEventSession
-
-
-
-
             this.value_realm = value_realm;
             this.value_impi = value_impi;
             this.value_impu = value_impu;
@@ -446,8 +477,6 @@ export default class {
             this.value_displayname = value_displayname;
             this.value_wsservice = value_wsservice;
             this.value_iceservice = value_iceservice;
-
-
 
             // create SIP stack
             oSipStack = new SIPml.Stack({
@@ -484,8 +513,13 @@ export default class {
             callparkcontainer = document.getElementById(value_callparkcontainer);
             divforparkunpark = document.getElementById(value_divforparkunpark);
 
+
+
+
+
             //divforparkunpark.style.display="none";
             btnaddtoparklist.value = "Call to Park List";
+
 
 
 
@@ -508,6 +542,7 @@ export default class {
                 ]
             };
 
+
             if (oSipStack.start() != 0) {
                 txtRegStatus = "Failed to start the SIP stack";
             }
@@ -516,24 +551,15 @@ export default class {
             txtRegStatus = "2:" + e + "";
             console.info("Error: " + e);
         }
-
-
-
-
-
-
-    }
-
-
+    } //End of StartStack
 
     sipUnRegister() {
         if (oSipStack) {
             oSipStack.stop(); // shutdown all sessions
         }
-    }
+    }//End of sipUnRegister
 
     sipCall(s_type) {
-
         // create call session
         oSipSessionCall = oSipStack.newSession(s_type, oConfigCall);
         // make call
@@ -548,31 +574,19 @@ export default class {
             txtCallStatus.value = 'Connecting...';
             oSipSessionCall.accept(oConfigCall);
         }
-    }
+    } //End of sipCall
 
-
-
-
-
-    // holds or resumes the call
     sipToggleHoldResume() {
         if (oSipSessionCall) {
             var i_ret;
             txtCallStatus.value = oSipSessionCall.bHeld ? 'Un-parking the call for: ' + txtDestinationnumber.value : 'Parking the call for: ' + txtDestinationnumber.value;
             i_ret = oSipSessionCall.bHeld ? oSipSessionCall.resume() : oSipSessionCall.hold();
-
-
-
-
-
-
-
             if (i_ret != 0) {
                 txtCallStatus.value = 'Call Park / Un-Park failed for: ' + txtDestinationnumber.value;
                 return;
             }
         }
-    }
+    }//End of sipToggleHoldResume
 
     stopShareVideoToggle() {
         var i_ret;
@@ -585,9 +599,8 @@ export default class {
         }
         oSipSessionCall.bMute = bMute;
         btnStopVideoSharing.value = bMute ? "Resume Video" : "Stop video";
-    } //MuteUnMuteCallVideo
+    } //End of MuteUnMuteCallVideo
 
-    // Mute or Unmute the call
     sipToggleMute() {
         if (oSipSessionCall) {
             var i_ret;
@@ -601,7 +614,7 @@ export default class {
             oSipSessionCall.bMute = bMute;
             btnCallMuteUnmute.value = bMute ? "Unmute" : "Mute";
         }
-    }
+    }//End of sipToggleMute
 
 
     callTransfer(destination) {
@@ -619,7 +632,6 @@ export default class {
         }
     }// End of CallTransfer
 
-    // terminates the call (SIP BYE or CANCEL)
     sipHangUp() {
         if (oSipSessionCall) {
             txtCallStatus.value = 'Terminating the call...';
@@ -631,27 +643,30 @@ export default class {
 
 
         }
-    }
+    }//End of terminates
 
     sipSendDTMF(c) {
         if (oSipSessionCall && c) {
             if (oSipSessionCall.dtmf(c) == 0) {
                 try {
-                   // dtmfTone.play();
-                   console.info('DTMF Event -> You pressed :' +   c);
-                } catch (e) { }
+                    dtmfTone.play();
+                    console.info('DTMF Event -> You pressed :' + c);
+                } catch (e) { console.info('Error from DTMF: ' + e)}
             }
 
         }
-        else {
+        else if(c) {
             try {
-                txtPhoneNumber.value = txtPhoneNumber.value + c;
+                txtDestinationnumber.value = txtDestinationnumber.value + c;
                 dtmfTone.play();
 
-            } catch (e) { }
-
+            } catch (e) { console.info('Error from DTMF: ' + e)}
         }
-    }
+        else
+        {
+           console.info("Nothing from DTMF") 
+        }
+    }//End of sipSendDTMF
 
 
     addparklist() {
@@ -659,34 +674,31 @@ export default class {
         var element = btnHoldResume;
         var clone = element.cloneNode(true);
         callparkcontainer.appendChild(clone);
-        //document.getElementById(callparkcontainer).appendChild(clone);
-
-    }
-
-
-
+    } //End of addparklist
 
 
     startRingTone() {
         try { ringtone.play(); }
         catch (e) { }
-    }
+    }//End og startRingTone
 
     stopRingTone() {
         try { ringtone.pause(); }
         catch (e) { }
-    }
+    } //End of stopRingTone
 
     startRingbackTone() {
         try { ringbacktone.play(); }
         catch (e) { }
-    }
+    } //End of startRingbackTone
 
     stopRingbackTone() {
         try { ringbacktone.pause(); }
         catch (e) { }
-    }
+    }//end ofstopRingbackTone 
 
+
+    //Experimental fucntion not published yet
     showNotifICall(s_number) {
         // permission already asked when we registered
         if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0) {
@@ -697,11 +709,7 @@ export default class {
             oNotifICall.onclose = function () { oNotifICall = null; };
             oNotifICall.show();
         }
-    }
-
-
-
-
+    } //End of showNotifICall
 
     uiCallTerminated(s_description) {
         if (window.btnBFCP) window.btnBFCP.disabled = true;
@@ -714,11 +722,267 @@ export default class {
             oNotifICall.cancel();
             oNotifICall = null;
         } setTimeout(function () { if (!oSipSessionCall) txtCallStatus.value = ''; }, 2500);
-    }
+    } //End of uiCallTerminated
+
+    //Main Phone Functions [End]
+
+
+    //Function for localmedia device and Mic Meter[start]
+    previewlocalvideo() {
+        var val = cmbmediadevicelistvideo.value;
+        var getselectedID = val.split('=');
+        var DID = getselectedID[1].replace(/\s/g, "");
+        console.info("Selected video device ID = " + DID);
+        video = videoElement
+        stopVideo = stopvideopreview;
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia(
+                {
+                    video: true,
+                    video: {
+                        deviceId: {
+                            exact: DID
+                        }
+                    }
+                }
+            )
+                .then(function (stream) {
+                    video.srcObject = stream;
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!" + err0r);
+                });
+        }
+    }//End of previewlocalvideo
+
+
+    stoplocalvideo() {
+        var stream = video.srcObject;
+        var tracks = stream.getTracks();
+        for (var i = 0; i < tracks.length; i++) {
+            var track = tracks[i];
+            track.stop();
+        }
+        video.srcObject = null;
+    } //End of stoplocalvideo
 
 
 
+
+    checkmic() {
+        // grab the "meter" canvas
+        canvasContext = meter.getContext("2d");
+
+        // monkeypatch Web Audio
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+        // grab an audio context
+        audioContext = new AudioContext();
+
+        // Attempt to get audio input
+        try {
+            // monkeypatch getUserMedia
+            navigator.getUserMedia =
+                navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia;
+
+            // ask for an audio input
+            console.info("Asking Mic Permisison")
+            navigator.getUserMedia(
+                {
+                    "audio": {
+                        "mandatory": {
+                            "googEchoCancellation": "false",
+                            "googAutoGainControl": "false",
+                            "googNoiseSuppression": "false",
+                            "googHighpassFilter": "false"
+                        },
+                        "optional": []
+                    },
+                }, gotStream, didntGetStream);
+        } catch (e) {
+            alert('getUserMedia threw exception :' + e);
+        }
+    }//End of checkmic
+
+    //Expermintal function not published yet
+    /*
+    stoplocalaudio() {
+        mediaStreamSource.disconnect(meter);
+        mediaStreamSource.srcObject = null;
+        //
+        meter = null;
+        console.info("Mic stopped");
+
+    }//stoplocalaudio
+    */
 } //end of default class
+
+
+
+function didntGetStream() {
+    console.info('Stream generation failed.');
+} //End of didntGetStream
+
+
+function gotStream(stream) {
+    // Create an AudioNode from the stream.
+    mediaStreamSource = audioContext.createMediaStreamSource(stream);
+    // Create a new volume meter and connect it.
+    meter = createAudioMeter(audioContext);
+    mediaStreamSource.connect(meter);
+    // kick off the visual updating
+    drawLoop();
+} //End of gotStream
+
+function drawLoop(time) {
+    // clear the background
+    canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+    // check if we're currently clipping
+    if (meter.checkClipping())
+        canvasContext.fillStyle = "red";
+    else
+        canvasContext.fillStyle = "green";
+
+    // draw a bar based on the current volume
+    canvasContext.fillRect(0, 0, meter.volume * WIDTH * 1.4, HEIGHT);
+
+    // set up the next visual callback
+    rafID = window.requestAnimationFrame(drawLoop);
+} //End of drawLoop
+
+
+ //Expermintal function not published yet
+    /*
+function stoplocalaudio() {
+    mediaStreamSource.disconnect(meter);
+    mediaStreamSource.srcObject = null;
+    console.info("Mic stopped");
+}//End of stoplocalaudio
+*/
+
+
+//code for volume meter
+function getlistofmedia(type) {
+    if (type.match("audio")) {
+        console.info("Device Type Selected " + type);
+        // var selectaudio = document.getElementById("cmbmediadevicelistaudio");	
+        var selectaudio = cmbmediadevicelistaudio;
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            console.log("enumerateDevices() not supported.");
+            return;
+        }
+        // List cameras and microphones.
+        navigator.mediaDevices.enumerateDevices()
+            .then(function (devices) {
+                devices.forEach(function (device) {
+                    console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+                    var device = device.kind + ": " + device.label + " id = " + device.deviceId;
+
+                    if (device.match("audioinput")) {
+
+                        selectaudio.options[selectaudio.options.length] = new Option(device, device);
+                        // cmbmediadevicelistaudio.options[selectaudio.options.length] = new Option(device, device);
+
+
+                    }
+                });
+            })
+            .catch(function (err) {
+                console.log(err.name + ": " + err.message);
+            });
+    } //End if
+    else if (type.match("video")) {
+        console.info("Device Type Selected " + type);
+
+        var selectvideo = cmbmediadevicelistvideo;
+        //var selectvideo = document.getElementById("cmbmediadevicelistvideo");	
+
+
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+            console.log("enumerateDevices() not supported.");
+            return;
+        }
+        // List cameras and microphones.
+        navigator.mediaDevices.enumerateDevices()
+            .then(function (devices) {
+                devices.forEach(function (device) {
+
+                    console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+                    var device = device.kind + ": " + device.label + " id = " + device.deviceId;
+
+                    if (device.match("videoinput")) {
+                        selectvideo.options[selectvideo.options.length] = new Option(device, device);
+                    }
+
+                });
+            })
+            .catch(function (err) {
+                console.log(err.name + ": " + err.message);
+            });
+
+    } //End if
+
+} //End of getlistofmedia
+
+
+function createAudioMeter(audioContext, clipLevel, averaging, clipLag) {
+    var processor = audioContext.createScriptProcessor(512);
+    processor.onaudioprocess = volumeAudioProcess;
+    processor.clipping = false;
+    processor.lastClip = 0;
+    processor.volume = 0;
+    processor.clipLevel = clipLevel || 0.98;
+    processor.averaging = averaging || 0.95;
+    processor.clipLag = clipLag || 750;
+
+    // this will have no effect, since we don't copy the input to the output,
+    // but works around a current Chrome bug.
+    processor.connect(audioContext.destination);
+
+    processor.checkClipping =
+        function () {
+            if (!this.clipping)
+                return false;
+            if ((this.lastClip + this.clipLag) < window.performance.now())
+                this.clipping = false;
+            return this.clipping;
+        };
+
+    processor.shutdown =
+        function () {
+            this.disconnect();
+            this.onaudioprocess = null;
+        };
+
+    return processor;
+} //End of createAudioMeter
+
+function volumeAudioProcess(event) {
+    var buf = event.inputBuffer.getChannelData(0);
+    var bufLength = buf.length;
+    var sum = 0;
+    var x;
+
+    // Do a root-mean-square on the samples: sum up the squares...
+    for (var i = 0; i < bufLength; i++) {
+        x = buf[i];
+        if (Math.abs(x) >= this.clipLevel) {
+            this.clipping = true;
+            this.lastClip = window.performance.now();
+        }
+        sum += x * x;
+    }
+    // ... then take the square root of the sum.
+    var rms = Math.sqrt(sum / bufLength);
+
+    // Now smooth this out with the averaging factor applied
+    // to the previous sample - take the max here because we
+    // want "fast attack, slow release."
+    this.volume = Math.max(rms, this.volume * this.averaging);
+} //End of volumeAudioProcess
 
 
 
