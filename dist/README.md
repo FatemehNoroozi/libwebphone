@@ -1,4 +1,4 @@
-###### libwebphone.js library v2.2
+###### libwebphone.js library v2.3
 
 ### Objective
 The goal of this library is to turn the browser in a softphone based on SIP+WebRTC. Using this, you should now be able to create some cool applications using softphones in your browser!
